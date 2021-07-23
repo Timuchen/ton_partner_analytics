@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProposalCategoriesTable extends Migration
+class AddImageToProposalCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class CreateProposalCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('proposal_categories', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::table('proposal_categories', function (Blueprint $table) {
+            //
         });
     }
 
@@ -26,6 +25,8 @@ class CreateProposalCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('proposal_categories');
+        Schema::table('proposal_categories', function (Blueprint $table) {
+            //
+        });
     }
 }

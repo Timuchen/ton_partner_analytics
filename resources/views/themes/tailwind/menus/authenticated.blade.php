@@ -17,28 +17,28 @@
                 <div class="border border-gray-100 shadow-md rounded-xl">
                     <div class="overflow-hidden shadow-xs rounded-xl">
                         <div class="relative z-20 grid gap-6 px-5 py-6 bg-white sm:p-8 sm:gap-8">
-                            <a href="{{ url('docs') }}" class="block px-5 py-3 -m-3 space-y-1 transition duration-150 ease-in-out hover:border-blue-500 hover:border-l-2 rounded-xl hover:bg-gray-100">
+                            <a href="{{ route('wave.blog') }}" class="block px-5 py-3 -m-3 space-y-1 transition duration-150 ease-in-out rounded-xl hover:bg-gray-100">
                                 <p class="text-base font-medium leading-6 text-gray-900">
-                                    Documentation
+                                    Community news
                                 </p>
                                 <p class="text-xs leading-5 text-gray-500">
-                                    View The Wave Docs
-                                </p>
-                            </a>
-                            <a href="https://devdojo.com/course/wave" target="_blank" class="block px-5 py-3 -m-3 space-y-1 transition duration-150 ease-in-out rounded-xl hover:bg-gray-100">
-                                <p class="text-base font-medium leading-6 text-gray-900">
-                                    Videos
-                                </p>
-                                <p class="text-xs leading-5 text-gray-500">
-                                    Watch videos to learn how to use Wave.
+                                Follow the community news.
                                 </p>
                             </a>
                             <a href="{{ route('wave.blog') }}" class="block px-5 py-3 -m-3 space-y-1 transition duration-150 ease-in-out rounded-xl hover:bg-gray-100">
                                 <p class="text-base font-medium leading-6 text-gray-900">
-                                    From The Blog
+                                New proposals
                                 </p>
                                 <p class="text-xs leading-5 text-gray-500">
-                                    View your application blog.
+                                Receive competition announcements.
+                                </p>
+                            </a>
+                            <a href="{{ route('wave.blog') }}" class="block px-5 py-3 -m-3 space-y-1 transition duration-150 ease-in-out rounded-xl hover:bg-gray-100">
+                                <p class="text-base font-medium leading-6 text-gray-900">
+                                Participation in competitions
+                                </p>
+                                <p class="text-xs leading-5 text-gray-500">
+                                Find out how to participate in proposals.
                                 </p>
                             </a>
                         </div>
@@ -46,22 +46,25 @@
                 </div>
             </div>
         </div>
-        <a href="#" class="inline-flex items-center px-1 pt-1 text-sm font-medium leading-5 text-gray-500 transition duration-150 ease-in-out border-b-2 border-transparent hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300">Support</a>
+        <a href="/proposals" class="inline-flex items-center px-1 pt-1 text-sm font-medium leading-5 text-gray-500 transition duration-150 ease-in-out border-b-2 border-transparent hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300">
+        Proposals
+        </a>
     </div>
-
+    <form class="flex sm:ml-6 sm:items-center hidden h-full md:flex" action="/search" method="GET" role="search">
+    {{ csrf_field() }}
+    <input class="w-full rounded p-2 h-8 focus:outline-none" name="q" type="text" placeholder="Search...">
+    <button class="bg-white w-auto flex justify-end items-center text-blue-500 p-2 hover:text-blue-400 h-8 focus:outline-none">
+        <i class="material-icons relative p-1 ml-3 text-gray-400 transition duration-150 ease-in-out rounded-full hover:text-gray-500 focus:outline-none focus:text-gray-500 focus:bg-gray-100">search</i>
+    </button>
+    </form>
 
     <div class="flex sm:ml-6 sm:items-center">
-
-        @if( auth()->user()->onTrial() )
-            <div class="relative items-center justify-center hidden h-full md:flex">
-                <span class="px-3 py-1 text-xs text-red-600 bg-red-100 border border-gray-200 rounded-md">You have {{ auth()->user()->daysLeftOnTrial() }} @if(auth()->user()->daysLeftOnTrial() > 1){{ 'Days' }}@else{{ 'Day' }}@endif left on your Trial</span>
-            </div>
-        @endif
 
         @include('theme::partials.notifications')
 
         <!-- Profile dropdown -->
         <div @click.away="open = false" class="relative flex items-center h-full ml-3" x-data="{ open: false }">
+        
             <div>
                 <button @click="open = !open" class="flex text-sm transition duration-150 ease-in-out border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300" id="user-menu" aria-label="User menu" aria-haspopup="true" x-bind:aria-expanded="open" aria-expanded="true">
                     <img class="w-8 h-8 rounded-full" src="{{ auth()->user()->avatar() . '?' . time() }}" alt="{{ auth()->user()->name }}'s Avatar">
@@ -97,9 +100,6 @@
                         <div class="block px-4 py-1">
                             <span class="inline-block px-2 my-1 -ml-1 text-xs font-medium leading-5 text-gray-600 bg-gray-200 rounded">{{ auth()->user()->role->display_name }}</span>
                         </div>
-                        @trial
-                            <a href="{{ route('wave.settings', 'plans') }}" class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900">Upgrade My Account</a>
-                        @endtrial
                         @if( !auth()->guest() && auth()->user()->can('browse_admin') )
                             <a href="{{ route('voyager.dashboard') }}" class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"><i class="fa fa-bolt"></i> Admin</a>
                         @endif
@@ -118,5 +118,4 @@
 
         </div>
     </div>
-
 </div>

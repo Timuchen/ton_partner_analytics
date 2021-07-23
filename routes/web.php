@@ -10,7 +10,12 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('proposals', 'ProposalController@index')->name('proposals');
+Route::get('proposals/show/{id}', 'ProposalController@show')->name('proposals.show');
+Route::get('proposals/category/{id}', 'ProposalCategoryController@index')->name('proposals.category');
 
+// Routes search 
+Route::get('/search', 'ProposalController@search');
 
 // Authentication routes
 Auth::routes();

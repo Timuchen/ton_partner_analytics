@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Proposal extends Model
 {
     use HasFactory;
+    public function proposalCategory()
+    {
+        return $this->belongsTo(ProposalCategory::class);
+    }
+    public function proposalStatus()
+    {
+        return $this->belongsTo(ProposalStatus::class);
+    }
+
+
+    
 }

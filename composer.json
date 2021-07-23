@@ -39,8 +39,7 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/",
-            "Wave\\": "wave/src/",
-            "Extraton\\TonClient\\Composer\\Scripts\\":"Ton/src"
+            "Wave\\": "wave/src/"
         }
     },
     "autoload-dev": {
@@ -66,7 +65,8 @@
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover"
-        ]
+        ],
+        "download-ton-sdk-library": "Extraton\\TonClient\\Composer\\Scripts::downloadLibrary"
     },
     "config": {
         "preferred-install": "dist",

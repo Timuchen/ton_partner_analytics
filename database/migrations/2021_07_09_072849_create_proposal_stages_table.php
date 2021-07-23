@@ -15,6 +15,16 @@ class CreateProposalStagesTable extends Migration
     {
         Schema::create('proposal_stages', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
+            $table->text('description')->nullable();
+            $table->dateTime('start_date')->nullable();
+            $table->dateTime('end_date')->nullable();
+                        
+            $table->unsignedBigInteger('proposal_id');
+            $table->foreign('proposal_id')
+            ->references('id')->on('proposals')
+            ->onDelete('cascade');
+
             $table->timestamps();
         });
     }

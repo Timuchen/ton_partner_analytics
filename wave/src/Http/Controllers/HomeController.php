@@ -4,6 +4,7 @@ namespace Wave\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+
 class HomeController extends \App\Http\Controllers\Controller
 {
 
@@ -19,6 +20,7 @@ class HomeController extends \App\Http\Controllers\Controller
     			return redirect('dashboard');
     		}
     	}
+
 
         $seo = [
 
