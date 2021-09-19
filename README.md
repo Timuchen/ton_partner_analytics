@@ -58,4 +58,6 @@ php artisan db:seed
 
 🎉 And that's it! You will now be able to visit your URL and see your tonto.space application up and running.
 
-<p align="center"><a href="https://tonto.space" target="_blank"><img src="https://tonto.space/storage/themes/July2021/N0DajUTtUzzhqXJzZwO1.png" width="240"></a></p>
+<p align="center"><a href="https://tonto.space" target="_blank"><img src="https://tonto.space/storage/themes/July2021/N0DajUTtUzzhqXJzZwO1.png" width="140"></a>
+tonto.space
+</p>
