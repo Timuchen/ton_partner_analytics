@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class ProposalScore extends Model
 {
     use HasFactory;
+    public function proposals()
+    {
+        return $this->belongsTo(Proposal::class);
+    }
 }

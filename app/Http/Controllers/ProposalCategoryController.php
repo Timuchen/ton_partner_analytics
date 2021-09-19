@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Proposal;
 use App\ProposalCategory;
+use Extraton\TonClient\Entity\Net\Filters;
+use Extraton\TonClient\Entity\Net\ParamsOfSubscribeCollection;
+use Extraton\TonClient\TonClient;
 
 class ProposalCategoryController extends Controller
 {
@@ -19,6 +22,21 @@ class ProposalCategoryController extends Controller
         ->get()->sortBy('title');
         $subcategories = $category->subcategories;
 
-        return view('proposals.category.index', compact('proposals', 'category', 'categories', 'subcategories'));
+        $calendar = Proposal::selectRaw('
+        year(date_time) year, 
+        month(date_time)month,
+        count(*) data, 
+        sum(amount_requested) amount_requested
+        ')
+        ->groupBy('year', 'month',)
+        ->orderBy('year', 'asc')
+        ->orderBy('month', 'asc')
+        ->get();
+        $allProps = $category->proposals()->get();
+
+        return view('proposals.category.index', compact('proposals', 'category', 'categories', 'subcategories', 'calendar', 'allProps'));
+    }
+    public function show(){
+        
     }
 }

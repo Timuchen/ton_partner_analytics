@@ -5,10 +5,10 @@
 <div class="flex flex-col px-8 mx-auto my-6 lg:flex-row max-w-7xl xl:px-5">
 <div class="flex flex-col justify-start">
 			<h1 class="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
-				Free TON proposals
+				Free TON partners proposals
 			</h1>
 			<p class="mt-3 text-xl leading-7 text-gray-500 sm:mt-4">
-      			Free TON network partners
+				Partner offer analytics
 			</p>
 
 		</div>  
@@ -74,9 +74,10 @@
 					<p class="mt-2 text-sm font-medium text-gray-600">
 						Approved by partners
 					</p>
-					<p class="text-lg font-semibold text-gray-700">
-					36 
+					<p class="text-lg font-semibold text-gray-700" style="float: left;">
+					{{count($allProps->where('proposal_status_id','=',1))}}
 					</p>
+					<span class="text-green-500 text-sm font-semibold ml-2">+{{count($allProps->where('proposal_status_id','=',5))}} TON Seed</span>
 				</div>
 			</div>
 		</div>
@@ -86,8 +87,8 @@
                         <!-- Tabs -->
                         <ul id="tabs" class="inline-flex w-full px-1 pt-2 ">
                           <li class="px-4 py-2 -mb-px font-semibold text-gray-800 border-b-2 border-blue-400 rounded-t opacity-50"><a id="default-tab" href="#first">All</a></li>
-                          <li class="px-4 py-2 font-semibold text-gray-800 rounded-t opacity-50"><a href="#second">2020</a></li>
-                          <li class="px-4 py-2 font-semibold text-gray-800 rounded-t opacity-50"><a href="#third">2021</a></li>
+                          <li class="px-4 py-2 font-semibold text-gray-800 rounded-t opacity-50"><a href="#second">2020 + statuses</a></li>
+                          <li class="px-4 py-2 font-semibold text-gray-800 rounded-t opacity-50"><a href="#third">2021 + statuses</a></li>
                         </ul>
 
                         <!-- Tab Contents -->
@@ -101,7 +102,6 @@
                           <div id="third" >
                           @include('proposals.chart2021')
                           </div>
-
                         </div>
 </div>
 
@@ -110,7 +110,11 @@
 			<ul class="flex flex-col w-full">
 				<li class="my-px">
 				<div class="flex flex-row items-center h-12 px-4 rounded-lg text-gray-600 hover:bg-gray-100">
-					<span class="flex font-medium text-sm text-gray-400 uppercase">Categories proposails ({{$allProps->count()}})</span>
+					<span class="flex font-medium text-sm text-gray-600 uppercase">Categories 
+						<span class="flex font-medium text-sm ml-1 mr-2 text-gray-400 uppercase">({{$categories->count()}})</span>
+						 proposails 
+						 <span class="flex font-medium text-sm ml-1 mr-2 text-gray-400 uppercase">({{$allProps->count()}})</span>
+					</span>
 					<span class="flex items-center justify-center text-sm text-gray-500 font-semibold ml-auto"> 	
 					<a style="cursor:pointer;" onclick="sortList(document.getElementsByClassName('list')[0]);">
 					<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -198,7 +202,7 @@
     @if ($proposals->count()>0)
     @foreach($proposals as $proposal)
 
-    <div class="max-w-l mx-auto px-4 py-4 bg-white shadow-md rounded-lg">
+    <div class="max-w-l mx-auto px-4 py-4 bg-white shadow-md rounded-lg" style="width: 100%;">
       <div class="py-2 flex flex-row items-center justify-between">
         <div class="flex flex-row items-center">
           <a href="/proposals/category/{{$proposal->proposalCategory->id}} " class="flex flex-row items-center focus:outline-none focus:shadow-outline rounded-lg">
@@ -222,7 +226,7 @@
         </div>
 
         <div class="flex flex-row items-center">
-          <p class="text-xs font-semibold text-gray-500">🕥 {{ Carbon\Carbon::parse($proposal->created_at)->diffForHumans() }}</p>
+          <p class="text-xs font-semibold text-gray-500" style="min-width: 110px;">🕥 {{ Carbon\Carbon::parse($proposal->date_time)->diffForHumans() }}</p>
         </div>
 
       </div>
@@ -235,12 +239,12 @@
         </a>
         @else
         <a href="/proposals/show/{{$proposal->id}}">
-        <img class="object-cover w-full rounded-lg" src="/storage/QNP1RbOScTqy6qhUjcyS.png" alt="" style="max-width: 1300px; max-height: 242px;">
+        <img class="object-cover w-full rounded-lg" src="/storage/undraw_Asset_selection_re_k5fj.png" alt="" style="max-width: 1300px; max-height: 242px;">
         </a>
         @endif
 		<div class="py-2 flex flex-row items-center">
 		@if($proposal->wallet)
-		<a href="https://ton.live/accounts/accountDetails?id={{$proposal->wallet}}" target="_blank">
+		<a href="https://ton.live/accounts/accountDetails?id={{$proposal->wallet}}" target="_blank" class="mr-2">
 		<button class="flex flex-row items-center focus:outline-none text-gray-500 focus:shadow-outline rounded-lg">
 		<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 			<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
@@ -249,12 +253,20 @@
 		</a>
         @endif
         @if ($proposal->amount_requested)
-        <span class="flex flex-row items-center focus:outline-none focus:shadow-outline rounded-lg">
+        <span class="flex flex-row items-center focus:outline-none focus:shadow-outline rounded-lg mr-2">
          💎 <span title="Requested" class="ml-1">{{$proposal->amount_requested}} </span>
         </span>
         @endif
-        <span class="flex flex-row items-center ml-3 focus:outline-none focus:shadow-outline rounded-lg">
-        Status: <span title="Requested" class="ml-1">{{$proposal->proposalStatus->title}}</span>
+        <span class="flex flex-row items-center focus:outline-none focus:shadow-outline rounded-lg">
+		@if($proposal->proposalStatus->id == 1)
+        <span title="Requested" class="ml-2 bg-green-400 pr-2 pl-2 rounded-full text-white">{{$proposal->proposalStatus->title}}</span>
+		@elseif($proposal->proposalStatus->id == 2 || $proposal->proposalStatus->id ==4)
+		<span title="Requested" class="ml-2 bg-red-400 pr-2 pl-2 rounded-full text-white">{{$proposal->proposalStatus->title}}</span>
+		@elseif($proposal->proposalStatus->id == 5)
+		<span title="Requested" class="ml-2 bg-yellow-400 pr-2 pl-2 rounded-full text-white">{{$proposal->proposalStatus->title}}</span>
+		@else
+		<span title="Requested" class="ml-2 bg-gray-200 pr-2 pl-2 rounded-full text-gray-800">{{$proposal->proposalStatus->title}}</span>
+		@endif
           </span>
         </div>
       </div>
@@ -264,7 +276,6 @@
       </a>  
       </div>
     </div>
-      
 	@endforeach
     @else
     <p class="mt-3 text-xl leading-7 text-gray-500 sm:mt-4">
@@ -274,8 +285,8 @@
     </div>
 
 </div>
-<div class="flex flex-col px-8 mx-auto my-6 lg:flex-row max-w-7xl xl:px-5" style="max-width: 1000px;">
-{{ $proposals->links() }}
+<div class="flex flex-col px-8 mx-auto my-6 lg:flex-row max-w-7xl xl:px-5" style="max-width: 600px;">
+{{ $proposals->links('theme::partials.pagination') }}
 </div>
 <style>
     .group:hover .group-hover\:block {
@@ -303,6 +314,7 @@
   margin-top: 15px;
   cursor:pointer;
 }
+
 </style>
 <script>
 	function sortList(ul){

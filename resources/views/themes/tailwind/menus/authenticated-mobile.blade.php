@@ -23,7 +23,13 @@
                         </a>
                         <a href="{{ route('proposals') }}" target="_blank" class="flex items-center p-3 -m-3 space-x-3 transition duration-150 ease-in-out rounded-md hover:bg-gray-50">
                             <div class="text-base font-medium leading-6 text-gray-900">
-                                Proposals
+                            Proposals & analytics
+                            </div>
+                        </a>
+
+                        <a href="{{ route('analitics') }}" target="_blank" class="flex items-center p-3 -m-3 space-x-3 transition duration-150 ease-in-out rounded-md hover:bg-gray-50">
+                            <div class="text-base font-medium leading-6 text-gray-900">
+                            Analytical summary
                             </div>
                         </a>
 

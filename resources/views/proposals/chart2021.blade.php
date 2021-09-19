@@ -8,12 +8,13 @@
 		@foreach($proposalMonth as $key => $value)
 		@if(substr($key, -4)==2021)
 		@php
-		$crystal = 0;
-		$crystalPaid = 0;
-		$accepted = 0;
-		$rejected = 0;
-		$consideration = 0;
-		$canseled = 0;
+			$crystal = 0;
+			$crystalPaid = 0;
+			$accepted = 0;
+			$rejected = 0;
+			$consideration = 0;
+			$canseled = 0;
+			$seed = 0;
 		@endphp
 		<div class="relative flex flex-col items-center flex-grow pb-5 group">
 
@@ -33,24 +34,36 @@
 			elseif($props['proposal_status_id'] == 4){
 				$canseled++;
 			}
+			elseif($props['proposal_status_id'] == 5){
+				$seed++;
+			}
+			if($props['date_time']){
+				$dateTime = $props['date_time'];
+			}
 		@endphp
 		@endforeach
+
 		<span class="absolute top-0 hidden -mt-6 text-xs font-bold group-hover:block"
 		style="z-index: 1;font-size: 10px;color: #2852a8;margin-top: -15px;"
-		>{{$crystal}} \ {{$crystalPaid}}</span>
-		<div class="relative flex justify-center w-full bg-wave-100" style="height:{{$consideration*2}}px"></div>
-		<div class="relative flex justify-center w-full bg-wave-500" style="height:{{$accepted*2}}px"></div>
-		<div class="relative flex justify-center w-full bg-red-400" style="height:{{$rejected*2}}px"></div>
-		<div class="relative flex justify-center w-full bg-red-200" style="height:{{$canseled*2}}px"></div>
-		<span class="absolute bottom-0 text-xs font-bold">{{substr($key, 0, -4)}}</span>
+		>{{$crystal}} \ <span class="text-green-500"> {{$crystalPaid}}</span></span>
+		<a href="/proposals/date?year={{substr($key, -4)}}&month={{\Carbon\Carbon::parse($dateTime)->format('m') }}" class="relative flex justify-center w-full bg-wave-100" style="height:{{$consideration*2}}px"></a>
+		<a href="/proposals/date?year={{substr($key, -4)}}&month={{\Carbon\Carbon::parse($dateTime)->format('m') }}" class="relative flex justify-center w-full bg-wave-500" style="height:{{$accepted*2}}px"></a>
+		<a href="/proposals/date?year={{substr($key, -4)}}&month={{\Carbon\Carbon::parse($dateTime)->format('m') }}" class="relative flex justify-center w-full bg-red-400" style="height:{{$rejected*2}}px"></a>
+		<a href="/proposals/date?year={{substr($key, -4)}}&month={{\Carbon\Carbon::parse($dateTime)->format('m') }}" class="relative flex justify-center w-full bg-red-200" style="height:{{$canseled*2}}px"></a>
+		<a href="/proposals/date?year={{substr($key, -4)}}&month={{\Carbon\Carbon::parse($dateTime)->format('m') }}" class="relative flex justify-center w-full bg-yellow-400 absolute" style="height:{{$seed*2}}px"></a>
+		<span class="absolute bottom-0 text-xs font-bold">
+			<a href="/proposals/date?year={{substr($key, -4)}}&month={{\Carbon\Carbon::parse($dateTime)->format('m') }}">
+				{{substr($key, 0, -4)}}
+			</a>
+		</span>
 		</div>
 		@endif
 		@endforeach			
-
 		</div>
+
 		<div class="flex w-full mt-3">
 			<div class="flex items-center ml-4">
-				<span class="ml-1 text-xs font-medium">💎 Requested \ Issued by TON Crystals</span>
+				<span class="ml-1 text-xs font-medium">💎 Requested \ <span class="text-green-500">Issued by</span> TON Crystals</span>
 			</div>
 			<div class="flex items-center ml-auto">
 				<span class="block w-4 h-4 bg-wave-500"></span>
@@ -67,6 +80,10 @@
 			<div class="flex items-center ml-4">
 				<span class="block w-4 h-4 bg-red-200"></span>
 				<span class="ml-1 text-xs font-medium">Canceled</span>
+			</div>
+			<div class="flex items-center ml-4">
+				<span class="block w-4 h-4 bg-yellow-400"></span>
+				<span class="ml-1 text-xs font-medium">TON Seed</span>
 			</div>
 		</div>
 	</div>

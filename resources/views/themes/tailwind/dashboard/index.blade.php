@@ -21,11 +21,9 @@
 
 	        </div>
 	        <div class="relative p-5">
-	            <p class="text-base leading-loose text-gray-500">This is your application <a href="{{ route('wave.dashboard') }}" class="underline text-wave-500">dashboard</a>, you can customize this view inside of <code class="px-2 py-1 font-mono text-base font-medium text-gray-600 bg-gray-100 rounded-md">{{ theme_folder('/dashboard/index.blade.php') }}</code><br><br> (Themes are located inside the <code>resources/views/themes</code> folder)</p>
+	            <p class="text-base leading-loose text-gray-500">The section is being prepared for publication. We are thinking about what rights to grant you. <a href="{{ route('proposals') }}" class="underline text-wave-500">back to partnership analytics</a></p>
 				<span class="inline-flex mt-5 rounded-md shadow-sm">
-	                <a href="{{ url('docs') }}" class="inline-flex items-center px-3 py-2 text-sm font-medium leading-4 text-gray-700 transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50">
-	                    Read The Docs
-	                </a>
+
 				</span>
 			</div>
 		</div>
@@ -36,7 +34,7 @@
 				</div>
 				<div class="relative flex-1">
 	                <h3 class="text-lg font-medium leading-6 text-gray-700">
-						Learn more about Wave
+						Learn more 
 	                </h3>
 	                <p class="text-sm leading-5 text-gray-500 mt">
 						Are you more of a visual learner?
@@ -45,12 +43,7 @@
 
 	        </div>
 	        <div class="relative p-5">
-				<p class="text-base leading-loose text-gray-500">Make sure to head on over to the Wave Video Tutorials to learn more how to use and customize Wave.<br><br>Click on the button below to checkout the video tutorials.</p>
-				<span class="inline-flex mt-5 rounded-md shadow-sm">
-	                <a href="https://devdojo.com/course/wave" target="_blank" class="inline-flex items-center px-3 py-2 text-sm font-medium leading-4 text-gray-700 transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50">
-						Watch The Videos
-	                </a>
-				</span>
+				
 			</div>
 	    </div>
 

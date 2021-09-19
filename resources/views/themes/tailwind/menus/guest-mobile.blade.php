@@ -18,10 +18,15 @@
                     <nav class="grid row-gap-8">
                         <a href="{{ route('proposals') }}" class="flex items-center px-8 py-3 space-x-3 transition duration-150 ease-in-out rounded-md hover:bg-gray-50">
                             <div class="text-base font-medium leading-6 text-gray-900">
-                                Proposals
+                                Proposals & analytics
                             </div>
                         </a>
-                        <a href="/blog" class="flex items-center px-8 py-3 space-x-3 transition duration-150 ease-in-out rounded-md hover:bg-gray-50">
+                        <a href="{{ route('analitics') }}" class="flex items-center px-8 py-3 space-x-3 transition duration-150 ease-in-out rounded-md hover:bg-gray-50">
+                            <div class="text-base font-medium leading-6 text-gray-900">
+                            Analytical summary
+                            </div>
+                        </a>
+                        <a href="{{ route('wave.blog') }}" class="flex items-center px-8 py-3 space-x-3 transition duration-150 ease-in-out rounded-md hover:bg-gray-50">
                             <div class="text-base font-medium leading-6 text-gray-900">
                                 Comunity News
                             </div>

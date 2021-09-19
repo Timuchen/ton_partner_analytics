@@ -12,17 +12,16 @@ use App\ProposalStage;
 use App\ProposalScore;
 use App\ProposalAma;
 
-
 class ProposalController extends Controller
 {
     public function index()
     {
         $proposals = Proposal::paginate(10);
-        $allProps = new Proposal;
+        $allProps = Proposal::get();
 
         $categories = ProposalCategory::whereNull('proposal_category_id')
         ->with('subcategories')
-        ->get()->sortBy('title');
+        ->get()->sortBy('date_time');
         
         $calendar = Proposal::selectRaw('
         year(date_time) year, 
@@ -99,4 +98,97 @@ class ProposalController extends Controller
         }
         
         }
+        public function month(Request $request){
+            $year = $request->get('year');
+            $month = $request->get('month');
+            $dateMonth = "$year-$month";
+
+            $proposals = Proposal::whereMonth('date_time', '=', $month)
+            ->whereYear('date_time', $year)
+            ->get();
+
+            $preMonth = Proposal::whereMonth('date_time', '=', $month-1)
+            ->whereYear('date_time', $year)
+            ->get();
+
+            $cat = $proposals->groupBy('proposal_category_id');
+
+            $categories = new ProposalCategory;
+
+            $calendar = Proposal::selectRaw('
+            year(date_time) year, 
+            month(date_time)month,
+            count(*) data, 
+            sum(amount_requested) amount_requested
+            ')
+            ->groupBy('year', 'month',)
+            ->orderBy('year', 'asc')
+            ->orderBy('month', 'asc')
+            ->get();
+
+            $propCount = Proposal::get();
+                        
+            return view ('proposals.month', compact('year','month', 'dateMonth', 'proposals', 'categories', 'cat', 'preMonth', 'calendar', 'propCount'));
+        }
+        public function analitics(){
+            $categories = ProposalCategory::orderBy('title', 'asc')->get();
+            $proposals = Proposal::get();
+            $reports = ProposalReport::all();
+            $stages = ProposalStage::all();
+            $score = ProposalScore::all();
+            $ama = ProposalAma::all();
+
+            
+            $calendar = Proposal::selectRaw('
+            year(date_time) year, 
+            month(date_time)month,
+            count(*) data, 
+            sum(amount_requested) amount_requested
+            ')
+            ->groupBy('year', 'month',)
+            ->orderBy('year', 'asc')
+            ->orderBy('month', 'asc')
+            ->get();
+
+            $tr = Proposal::select('date_time', 'id', 'title', 'amount_requested', 'paid_amount', 'proposal_status_id')
+            ->orderBy('date_time', 'ASC')
+            ->get();
+    
+            $proposalMonth = $tr->groupBy(function($item){
+                return date('M Y', strtotime($item->date_time));
+            })->toArray();
+            
+            return view('proposals.analitics', compact('proposals', 'categories', 'reports', 'stages', 'score', 'ama', 'calendar', 'proposalMonth'));
+        }
+        public function filter(){
+            $proposals = Proposal::paginate(10);
+            $allProps = Proposal::get();
+    
+            $categories = ProposalCategory::whereNull('proposal_category_id')
+            ->with('subcategories')
+            ->get()->sortBy('date_time');
+            
+            $calendar = Proposal::selectRaw('
+            year(date_time) year, 
+            month(date_time)month,
+            count(*) data, 
+            sum(amount_requested) amount_requested
+            ')
+            ->groupBy('year', 'month',)
+            ->orderBy('year', 'asc')
+            ->orderBy('month', 'asc')
+            ->get();
+    
+    
+            $tr = Proposal::select('date_time', 'id', 'title', 'amount_requested', 'paid_amount', 'proposal_status_id')
+            ->orderBy('date_time', 'ASC')
+            ->get();
+    
+            $proposalMonth = $tr->groupBy(function($item){
+                return date('M Y', strtotime($item->date_time));
+            })->toArray();
+    
+            return view('proposals.index', compact('proposals', 'categories', 'allProps', 'calendar', 'proposalMonth'));
+        }
 }
+
